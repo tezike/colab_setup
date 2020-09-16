@@ -1,6 +1,5 @@
 export $ADDR = 127.0.0.1
 export $PORT = 6006
-pip3 install -U fastai
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -q
 sudo apt-get install -y nodejs -q
 pip3 install jupyter jupyterlab --upgrade -q
