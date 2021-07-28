@@ -2498,6 +2498,19 @@ spec:
   selector:
     app.kubernetes.io/name: argocd-server
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-vault-plugin-credentials
+  namespace: argocd
+type: Opaque
+data:
+  AVP_AUTH_TYPE: approle
+  AVP_ROLE_ID: cbcfd799-56a0-1f76-210a-5de056b92d3f
+  AVP_SECRET_ID: 2aa97d89-ed79-1e7c-c659-d81faa750694
+  AVP_TYPE: vault
+  AVP_VAULT_ADDR: http://vault:8200
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -2998,3 +3011,29 @@ spec:
       app.kubernetes.io/name: argocd-server
   policyTypes:
   - Ingress
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-cm
+  namespace: argocd
+  selfLink: /api/v1/namespaces/argocd/configmaps/argocd-cm
+  uid: daa4ca01-b1a5-4797-b034-08d12be70c2c
+  resourceVersion: '3574369'
+  creationTimestamp: '2021-07-28T10:28:17Z'
+  labels:
+    app.kubernetes.io/name: argocd-cm
+    app.kubernetes.io/part-of: argocd
+  managedFields:
+    - manager: kubectl-client-side-apply
+      operation: Update
+      apiVersion: v1
+      time: '2021-07-28T10:28:17Z'
+stringData:
+  configManagementPlugins: |-
+    - name: argocd-vault-plugin
+      generate:
+        command: ["argocd-vault-plugin"]
+        args: ["generate", "./"]
