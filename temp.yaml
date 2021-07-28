@@ -2651,19 +2651,19 @@ spec:
               topologyKey: kubernetes.io/hostname
             weight: 5
       automountServiceAccountToken: false
-      initContainers:
-      - name: download-tools
-        image: alpine:3.8
-        command: [sh, -c]
-        args:
-          - apk add coreutils && \
-            apk add wget && \
-            wget -O argocd-vault-plugin https://github.com/IBM/argocd-vault-plugin/releases/download/v0.3.0/argocd-vault-plugin_0.3.0_linux_amd64 &&\
-            chmod +x argocd-vault-plugin &&\
-            mv argocd-vault-plugin /custom-tools/
-        volumeMounts:
-          - mountPath: /custom-tools
-            name: custom-tools
+#       initContainers:
+#       - name: download-tools
+#         image: alpine:3.8
+#         command: [sh, -c]
+#         args:
+#           - apk add coreutils && \
+#             apk add wget && \
+#             wget -O argocd-vault-plugin https://github.com/IBM/argocd-vault-plugin/releases/download/v0.3.0/argocd-vault-plugin_0.3.0_linux_amd64 &&\
+#             chmod +x argocd-vault-plugin &&\
+#             mv argocd-vault-plugin /custom-tools/
+#         volumeMounts:
+#           - mountPath: /custom-tools
+#             name: custom-tools
       containers:
       - command:
         - uid_entrypoint.sh
@@ -2672,6 +2672,10 @@ spec:
         - argocd-redis:6379
         image: quay.io/argoproj/argocd:v2.0.4
         imagePullPolicy: Always
+        lifecycle:
+        postStart:
+          exec:
+            command: ["/bin/sh", "-c", "wget -O argocd-vault-plugin https://github.com/IBM/argocd-vault-plugin/releases/download/v0.3.0/argocd-vault-plugin_0.3.0_linux_amd6 && chmod +x argocd-vault-plugin && mv argocd-vault-plugin /usr/local/bin/"]
         livenessProbe:
           failureThreshold: 3
           httpGet:
