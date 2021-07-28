@@ -3030,7 +3030,7 @@ metadata:
       operation: Update
       apiVersion: v1
       time: '2021-07-28T10:28:17Z'
-stringData:
+data:
   configManagementPlugins: |-
     - name: argocd-vault-plugin
       generate:
