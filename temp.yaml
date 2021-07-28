@@ -2670,12 +2670,9 @@ spec:
         - argocd-repo-server
         - --redis
         - argocd-redis:6379
-        image: quay.io/argoproj/argocd:v2.0.4
+#         image: quay.io/argoproj/argocd:v2.0.4
+        image: tezike/argocd:latest
         imagePullPolicy: Always
-        lifecycle:
-          postStart:
-            exec:
-              command: ["/bin/sh", "-c", "wget -O argocd-vault-plugin https://github.com/IBM/argocd-vault-plugin/releases/download/v0.3.0/argocd-vault-plugin_0.3.0_linux_amd6 && chmod +x argocd-vault-plugin && mv argocd-vault-plugin /usr/local/bin/"]
         livenessProbe:
           failureThreshold: 3
           httpGet:
