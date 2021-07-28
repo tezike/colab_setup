@@ -2682,6 +2682,9 @@ spec:
         ports:
         - containerPort: 8081
         - containerPort: 8084
+        envFrom:
+        - secretRef:
+            name: argocd-vault-plugin-credentials 
         readinessProbe:
           httpGet:
             path: /healthz
@@ -2707,9 +2710,6 @@ spec:
         - name: custom-tools
           mountPath: /usr/local/bin/argocd-vault-plugin
           subPath: argocd-vault-plugin
-      envFrom:
-      - secretRef:
-          name: argocd-vault-plugin-credentials 
       volumes:
       - configMap:
           name: argocd-ssh-known-hosts-cm
