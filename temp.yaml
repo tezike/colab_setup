@@ -2734,7 +2734,7 @@ spec:
           optional: true
           secretName: argocd-repo-server-tls
       - name: custom-tools
-          emptyDir: {}
+        emptyDir: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
