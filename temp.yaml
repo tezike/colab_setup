@@ -2504,7 +2504,7 @@ metadata:
   name: argocd-vault-plugin-credentials
   namespace: argocd
 type: Opaque
-data:
+stringData:
   AVP_AUTH_TYPE: approle
   AVP_ROLE_ID: cbcfd799-56a0-1f76-210a-5de056b92d3f
   AVP_SECRET_ID: 2aa97d89-ed79-1e7c-c659-d81faa750694
