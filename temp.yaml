@@ -3030,7 +3030,7 @@ metadata:
 #       time: '2021-07-28T10:28:17Z'
 data:
   configManagementPlugins: |-
-    - name: argocd-vault-plugin
+    - name: argocd-vault-plugin-kustomize
       generate:
-        command: ["argocd-vault-plugin"]
-        args: ["generate", "./"]
+        command: ["sh", "-c"]
+        args: ["kustomize build . > all.yaml && argocd-vault-plugin generate all.yaml"]
