@@ -1,0 +1,137 @@
+## Setting up vault
+NB: Ensure vault is installed in the argocd namespace
+
+Exec into vault installed with helm and enable approle authentication that argocd plugin will use
+
+vault auth enable approle
+
+vault write auth/approle/role/argo-role \
+    secret_id_ttl=24h \
+    token_num_uses=10 \
+    token_ttl=20m \
+    token_max_ttl=30m \
+    secret_id_num_uses=40
+
+
+vault policy write argo-policy - <<EOF
+path "secret*" {
+  capabilities = ["read", "create", "update", "list"]
+}
+EOF
+
+vault write auth/approle/role/argo-role \
+        token_policies="argo-policy" \
+	token_ttl=24h \
+        token_max_ttl=48h
+
+#### Obtain roleID and generate a secretId for the approle auth with these commands
+
+vault read auth/approle/role/my-role/role-id
+vault write -f auth/approle/role/my-role/secret-id
+
+
+
+########argocd-vault-plugin
+## Installation
+
+Create a docker image and upload to a registry using the commands below
+
+mkdir argocdvault && cd argocdvault
+
+wget https://github.com/IBM/argocd-vault-plugin/releases/download/v1.1.4/argocd-vault-plugin_1.1.4_linux_amd64 -O argocd-vault-plugin
+
+cat << EOF > Dockerfile
+FROM alpine:3.8
+USER root
+WORKDIR /tmp
+COPY ./argocd-vault-plugin .
+RUN chmod +x ./argocd-vault-plugin
+EOF
+
+docker built -t <reponame>/argocd .
+docker push <reponame>/argocd
+
+Installing argocd
+
+run the command below to set up ENVVARS for argocd-vault-plugin approle auth with vault
+
+cat << EOF > argocd-creds.yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-vault-plugin-credentials
+  namespace: argocd
+type: Opaque
+stringData:
+  AVP_AUTH_TYPE: approle
+  AVP_ROLE_ID: 3b1f5ace-d66b-a092-dd80-b79a36175884 #set your role-id here
+  AVP_SECRET_ID: 1145171a-a679-ac20-77af-6c26e64309ea #set your secret-id here
+  AVP_TYPE: vault
+  VAULT_ADDR: http://vault:8200
+EOF
+
+kubectl apply -f argo-creds.yaml
+
+Download manifest I've setup
+
+wget -O argo_all.yaml https://raw.githubusercontent.com/tezike/colab_setup/master/temp.yaml
+
+NB: Please edit tezike/argocd:latest to your own repo name where you pushed the image built in preveious step
+
+In kubernetes cluster, run 
+kubectl apply -f argo_all.yaml
+
+NB: This istalls the default and kustomize argocd plugins into argocd-repo-server
+
+You can create an ingress for argo. Set the port 443 to nodeport and use it in ingress rule
+
+
+## using argo
+On argo UI create application with following manifest
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: auth-qa
+spec:
+  destination:
+    name: ''
+    namespace: qa
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: GLOS/authservice/overlays/development
+    repoURL: 'https://bitbucket.org/kobo360/deployment.git'
+    targetRevision: HEAD
+    plugin:
+      name: argocd-vault-plugin-kustomize
+  project: qa
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+
+NB: If you get a permission denied error on clicking create, simply exec in to the argocd-repo-server pod and 
+update the value in .avp/config.json to the token key you use in accessing the vault ui
+
+## Attaching secrets
+create a secret in the overlays called and mount it in kustomization.yaml as a resource
+the secret should have the following format
+cat <<EOF > secrets.yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  namespace: qa
+  name: testing
+  annotations:
+    avp.kubernetes.io/path: "secret/data/<path to secret in vault>"
+type: Opaque
+stringData:
+  username: <username key in vault. The <> signs should be maintained>
+EOF
+
+After this, sync the application in argocd, go the the cluster and check 
+for secrest in the namespace you pointed argo to. You should see your secret there.
+
+To confirm it works, decode and view that secret as a yaml to see if the value 
+there is what you have in vault
