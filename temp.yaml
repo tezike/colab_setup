@@ -3032,5 +3032,9 @@ data:
   configManagementPlugins: |-
     - name: argocd-vault-plugin
       generate:
+        command: ["argocd-vault-plugin"]
+        args: ["generate", "./"]
+    - name: argocd-vault-plugin-kustomize
+      generate:
         command: ["sh", "-c"]
         args: ["kustomize build . > all.yaml && argocd-vault-plugin generate all.yaml"]
