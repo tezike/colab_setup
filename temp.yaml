@@ -3016,10 +3016,6 @@ kind: ConfigMap
 metadata:
   name: argocd-cm
   namespace: argocd
-  selfLink: /api/v1/namespaces/argocd/configmaps/argocd-cm
-  uid: daa4ca01-b1a5-4797-b034-08d12be70c2c
-#   resourceVersion: '3574369'
-#   creationTimestamp: '2021-07-28T10:28:17Z'
   labels:
     app.kubernetes.io/name: argocd-cm
     app.kubernetes.io/part-of: argocd
@@ -3027,7 +3023,6 @@ metadata:
     - manager: kubectl-client-side-apply
       operation: Update
       apiVersion: v1
-#       time: '2021-07-28T10:28:17Z'
 data:
   configManagementPlugins: |-
     - name: argocd-vault-plugin
