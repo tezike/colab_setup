@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "***",
+  "private_key_id": "***",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDYT28ZQ8uRA8Gr\ntwMz04lQuIi0ma5JAbqvj3zYutFyOsqll8gufo94zOfPnEnbCnsLkEs9YThk/eHI\nNKsrn6Lo67Vmof2CSG7HVg8pIWl0/PwNhiKAsgpvJtL/ryx2lENvZ9Hau4y+UhhS\nKqOddJ+e1e23e3gDcMHAHo7XjEoXi5PwImO7CIW02BeiJKqWJs5DtmI2IGylFiDE\njvRfXqr7gzIA+E3ll/x84qQIYtuvJX3d4KYqUs+Oj6t3xTP6sVLGdAcuLJn+9n9m\n2fXw0XybfguzoFm6doAhB3tTZxeNFXj8EKiYQTLI7Apwd08RLIYxAxYgo4hmAWl8\nY/fKt3mlAgMBAAECggEAAjyqD7cThRumllXFbvUGU8MgyMtZEdC2g0fG2P/vmBCT\nFWzRKWfuKGfoEs3RNrZwSNGUcZ1Ohb7ZZaZjycb0GpgLb3UH59/DY4TYkcqSal8O\nZT5on2+X64fZgULowQ4t91o5wZsUbMhxD3J48DErUGtycqYQeuqg2lGGlSSShJVM\nUnjbXKUavqWxt1TZqN/l4jExkGjov3UXP+6AZvnU/K48Yh6q2fseivVxhkSqF4+x\nWFXPXjg/BC0eKmas72Q2OVfd8m5QE0eJIPn/P0Lb4JpfWl014lxXdZ4fCbAEuwG6\nOLuPghGJNxc2NrGuycFtJrODDwk3wQgfTX2db4OcCQKBgQD1miZLlkmSG3T2K3LD\nJ8wMrhZdvWPi5FMvYPo5PPBDm3X2qDGJA5N3K8UR9UrzLmRnYBtIQokmpc/BI3Au\ntspaMi9bIbJ2WREm80bcvUZAGFArc0RUB9mg2V6bhHs/OPjfEksVoImY6520OjDo\ny+O8p/6JzUJUgiJkotJIewW+yQKBgQDhd9FJJu41UmYcEkppeIf8MQch/TtkgOSr\nsOsygK2vnAZooiEmR1oo70qGkY7xY3fARBwqbgYx3LTVE1Rr4q2bu8zTOBmhHF0e\nFsv0jzIKwxvDE9vhmThfP4IZY3BEWNlgCueSiooSr+mnXO+f/aATbQE9RQQshlZw\n7f9AZtAF/QKBgQDSjSx3cIfx8gf7YpQoKl4MINKb2llfkk6eN41MtKllzEj9BIQy\n6hXp/GQeWSPABu2ckg/Rivj5YP0Snsb1xU8EtDFU9zZ/ryu9MKJ3auxm1nEkTtUt\nFO3Fr5Qjzxe5w6XX1173U4Giz5uLfrefW+wJOBxHFujeehHyJIQSDyWFwQKBgFKY\nWgq6QDk4Xj+aU7gfd3FjZIGHCuLedOaQgRiXGwlh1tctzYcATH8CagKx//NdxNii\nGs9QTuSlPXlxA1QiTgbm3TnjK0Bh65rCLyT/8A0RPHJSLBKQ1p3N3hL+4nmnMrqE\nRCDir4H4/1dYLFAn0SRMok+XoNfOvovQI9mr0DjhAoGAUkHsdkpOvXcsWFQklq8T\nRdQvjhEOFzwfGImxheq5RnFIaSVwTeh2Lacge/YQNZIaLHo3AEQSrSF3BkkNTpxK\n0LDrvc1RMtPWPZ8pXx7JfLIfJnIEiJSMJrllyb4mLK87/cyz7MoAkox/bOfQI89g\nK9m+xP3txWja6/3BrAyZkLc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "***",
+  "client_id": "113336843962150092140",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "***"
+}
